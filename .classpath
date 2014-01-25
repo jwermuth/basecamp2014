@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/test/geb"/>
+	<classpathentry kind="src" path="src/test/resources"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="/home/jaw/.gradle/caches/modules-2/files-2.1/org.gebish/geb-spock/0.9.0-RC-3/63d97ea181a80403d1ad1bf9a0203e5abe9ce44f/geb-spock-0.9.0-RC-3.jar" sourcepath="/home/jaw/.gradle/caches/modules-2/files-2.1/org.gebish/geb-spock/0.9.0-RC-3/2292878c62f06f296ccf1c7bfdf7f3a7cf63dfd8/geb-spock-0.9.0-RC-3-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/jaw/.gradle/caches/modules-2/files-2.1/org.spockframework/spock-core/0.7-groovy-2.0/4de0b428de0c14b6eb6375d8174f71848cbfc1d7/spock-core-0.7-groovy-2.0.jar" sourcepath="/home/jaw/.gradle/caches/modules-2/files-2.1/org.spockframework/spock-core/0.7-groovy-2.0/19f1e62a5094604766f83e55a693b9cdac3b271a/spock-core-0.7-groovy-2.0-sources.jar"/>
