@@ -1,16 +1,13 @@
-import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
-import org.openqa.selenium.remote.CommandExecutor
-import org.openqa.selenium.remote.DesiredCapabilities
-import org.openqa.selenium.remote.RemoteWebDriver
 
 baseUrl = "http://google.dk"
 
-//driver = { new FirefoxDriver() }
 //driver = {new HtmlUnitDriver() }
-driver = { new ChromeDriver() }
+//driver = { new ChromeDriver() }
+//driver = { new FirefoxDriver() }
+driver = "firefox"
 
 
 environments {
