@@ -1,3 +1,4 @@
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 
@@ -44,15 +45,7 @@ enum DriverPath {
 	}
 
 	def is64Bit() {
-		System.getProperty("os.arch").contains("64")
-	}
-
-	def isWindows() {
-		System.getProperty("os.name").toLowerCase().contains("windows")
-	}
-
-	def isLinux() {
-		System.getProperty("os.name").toLowerCase().contains("linux")
+		
 	}
 
 	public def String getPathToExecutable() {
@@ -80,7 +73,7 @@ def setDriverPathAndGetBrowserInstance(DriverPath driver) {
 }
 
 // Set this to control which browser is fired when you execute tests in your IDE
-driver = { setDriverPathAndGetBrowserInstance(DriverPath.chrome) }
+driver = { setDriverPathAndGetBrowserInstance(DriverPath.firefox) }
 
 environments {
 
