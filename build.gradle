@@ -45,7 +45,7 @@ drivers.each { driver ->
         systemProperty "geb.env", driver
 		//System.properties["geb.env"] = driver
 		
-		systemProperty "webdriver.chrome.driver", "/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/chromedriver"
+		//systemProperty "webdriver.chrome.driver", "/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/chromedriver"
 		//System.setProperty("webdriver.chrome.driver", "/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/chromedriver")
 		
 		// systemProperty "webdriver.ie.driver", "drivers/ie/IEDriverServer.exe"

@@ -4,13 +4,9 @@ import org.openqa.selenium.firefox.FirefoxDriver
 
 baseUrl = "http://google.dk"
 
-enum DriverExecutable {
-	windows("IEDriverServer.exe"), linux(""), mac()
-}
-
 enum DriverPath {
 	firefox(""), chrome("chromedriver"), ie("IEDriverServer.exe")
-	
+
 	DriverPath(executable) {
 		this.executable = executable
 	}
@@ -20,7 +16,7 @@ enum DriverPath {
 
 	def String getOS() {
 		String osName = ((String) System.getProperty("os.name")).toLowerCase()
-		
+
 		switch (osName) {
 			case  osName.contains("windows"):
 				"windows"
@@ -32,7 +28,7 @@ enum DriverPath {
 				"mac"
 				break
 			default:
-				osName			
+				osName
 		}
 	}
 
@@ -45,7 +41,6 @@ enum DriverPath {
 	}
 
 	def is64Bit() {
-		
 	}
 
 	public def String getPathToExecutable() {
