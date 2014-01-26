@@ -11,10 +11,10 @@ ext.drivers = ["firefox"]
 
 dependencies {
     def gebVersion = "0.9.0-RC-3"
-    def seleniumVersion = "2.30.0"
+//    def seleniumVersion = "2.30.0"
 
 	//def gebVersion = "0.9.2"
-    //def seleniumVersion = "2.39.0"
+    def seleniumVersion = "2.39.0"
 
     // If using Spock, need to depend on geb-spock
     testCompile "org.gebish:geb-spock:$gebVersion"
@@ -45,7 +45,7 @@ drivers.each { driver ->
         systemProperty "geb.build.reportsDir", reporting.file("$name/geb")
         systemProperty "geb.env", driver
 		
-		systemProperty "webdriver.${driver}.driver", "drivers/chrome/chromedriver"
+		systemProperty "webdriver.chrome.driver", "drivers/chrome/chromedriver"
 		
 		// systemProperty "webdriver.ie.driver", "drivers/ie/IEDriverServer.exe"
 		

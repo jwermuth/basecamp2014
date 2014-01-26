@@ -1,6 +1,7 @@
 package org.basecamp.resources
 
 import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.firefox.FirefoxProfile
 //import org.openqa.selenium.chrome.ChromeDriver
 //import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
@@ -23,7 +24,8 @@ environments {
     // run via “./gradlew firefoxTest”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
     firefox {
-        driver = { new FirefoxDriver() }
+		
+        driver = { new FirefoxDriver(new FirefoxProfile()) }
     }
 	
 /*	htmlunit {
