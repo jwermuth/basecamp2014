@@ -1,9 +1,5 @@
-
-
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
-//import org.openqa.selenium.chrome.ChromeDriver
-//import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
 baseUrl = "http://google.dk"
 
@@ -12,6 +8,37 @@ baseUrl = "http://google.dk"
 //driver = { new FirefoxDriver() }
 //driver = "firefox"
 
+// Set env to run with chrome
+driver = "chrome"
+System.properties["webdriver.chrome.driver"] = getDriver()
+
+def is64Bit() {
+	System.getProperty("os.arch").contains("64")
+}
+
+def isWindows() {
+	System.getProperty("os.name").toLowerCase().contains("windows")
+}
+
+def isLinux() {
+	System.getProperty("os.name").toLowerCase().contains("linux")
+}
+
+def getDriver() {
+	if (isWindows()) {
+		if (is64Bit()) {
+			
+		} else {
+		
+		}
+	} else if (isLinux()) {
+		if (is64Bit()) {
+			"/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/chromedriver"
+		} else {
+		
+		}
+	}
+}
 
 environments {
 
@@ -24,12 +51,11 @@ environments {
     // run via “./gradlew firefoxTest”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
 	chrome {
-		
+		System.properties["webdriver.chrome.driver"] = getDriver();
 		driver = { new ChromeDriver() }
 	}
 
     firefox {
-		
         driver = { new FirefoxDriver() }
     }
 	
