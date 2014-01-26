@@ -11,10 +11,12 @@ baseUrl = "http://google.dk"
 //driver = "firefox"
 
 // Set env to run with chrome
-driver = setDriverPath("chrome")
+driver = setDriverPath("firefox")
 
 def setDriverPath(browserName) {
-	System.properties["webdriver." + browserName + ".driver"] = getDriver()
+	if (!"firefox".equals(browserName)) {
+		System.properties["webdriver." + browserName + ".driver"] = getDriver()
+	}
 	browserName
 }
 
@@ -39,7 +41,7 @@ def getDriver() {
 		}
 	} else if (isLinux()) {
 		if (is64Bit()) {
-			"/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/chromedriver"
+			"/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/linux/64/chromedriver"
 		} else {
 		
 		}
