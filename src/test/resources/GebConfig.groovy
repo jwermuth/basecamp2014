@@ -1,6 +1,8 @@
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 
+import com.sun.java.util.jar.pack.Instruction.Switch;
+
 baseUrl = "http://google.dk"
 
 //driver = {new HtmlUnitDriver() }
@@ -9,8 +11,12 @@ baseUrl = "http://google.dk"
 //driver = "firefox"
 
 // Set env to run with chrome
-driver = "chrome"
-System.properties["webdriver.chrome.driver"] = getDriver()
+driver = setDriverPath("chrome")
+
+def setDriverPath(browserName) {
+	System.properties["webdriver." + browserName + ".driver"] = getDriver()
+	browserName
+}
 
 def is64Bit() {
 	System.getProperty("os.arch").contains("64")
@@ -51,7 +57,7 @@ environments {
     // run via “./gradlew firefoxTest”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
 	chrome {
-		System.properties["webdriver.chrome.driver"] = getDriver();
+		setDriverPath("chrome")
 		driver = { new ChromeDriver() }
 	}
 
