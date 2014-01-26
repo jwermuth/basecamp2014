@@ -16,15 +16,17 @@ enum DriverPath {
 
 	def String getOS() {
 		String osName = ((String) System.getProperty("os.name")).toLowerCase()
-		
+
 		if (osName.contains("windows")) {
 			return "windows"
 		} else {
-		if (osName.contains("linux")) {
-			return "linux"
-		} else {
-		if (osName.contains("mac")) {
-			return "mac"
+			if (osName.contains("linux")) {
+				return "linux"
+			} else {
+				if (osName.contains("mac")) {
+					return "mac"
+				}
+			}
 		}
 	}
 
