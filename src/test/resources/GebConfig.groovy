@@ -5,66 +5,75 @@ import com.sun.java.util.jar.pack.Instruction.Switch;
 
 baseUrl = "http://google.dk"
 
-//driver = {new HtmlUnitDriver() }
-//driver = { new ChromeDriver() }
-//driver = { new FirefoxDriver() }
-//driver = "firefox"
-
-// Set env to run with chrome
-driver = setDriverPath("firefox")
-
-def setDriverPath(browserName) {
-	if (!"firefox".equals(browserName)) {
-		System.properties["webdriver." + browserName + ".driver"] = getDriver()
+enum Driver { firefox, chrome
+	Driver() {
 	}
-	browserName
-}
 
-def is64Bit() {
-	System.getProperty("os.arch").contains("64")
-}
-
-def isWindows() {
-	System.getProperty("os.name").toLowerCase().contains("windows")
-}
-
-def isLinux() {
-	System.getProperty("os.name").toLowerCase().contains("linux")
-}
-
-def getDriver() {
-	if (isWindows()) {
-		if (is64Bit()) {
+	def is64Bit() {
+		System.getProperty("os.arch").contains("64")
+	}
+	
+	def isWindows() {
+		System.getProperty("os.name").toLowerCase().contains("windows")
+	}
+	
+	def isLinux() {
+		System.getProperty("os.name").toLowerCase().contains("linux")
+	}
+	
+	def getPathToExecutable() {
+		if (isWindows()) {
+			if (is64Bit()) {
+				
+			} else {
 			
-		} else {
-		
-		}
-	} else if (isLinux()) {
-		if (is64Bit()) {
-			"/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/linux/64/chromedriver"
-		} else {
-		
+			}
+		} else if (isLinux()) {
+			if (is64Bit()) {
+				"/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/linux/64/chromedriver"
+			} else {
+			
+			}
 		}
 	}
+	
 }
+
+
+def setDriverPathAndGetBrowserInstance(Driver driver) {
+	if (driver != Driver.firefox) {
+		System.properties["webdriver." + driver + ".driver"] = driver.getPathToExecutable()
+	}
+	
+	def browserDriver = null
+	switch (driver) {
+		case Driver.firefox:
+			return new FirefoxDriver()
+			break;
+		case Driver.chrome:
+			return new ChromeDriver()
+			break;
+		default:
+			return new FirefoxDriver()
+			
+	}
+}
+
+// Set this to control which browser is fired when you execute tests in your IDE
+driver = { setDriverPathAndGetBrowserInstance(Driver.firefox) }
 
 environments {
 
     // run via “./gradlew chromeTest”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
-/*    chrome {
-        driver = { new ChromeDriver() }
-    }
-*/
-    // run via “./gradlew firefoxTest”
-    // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
 	chrome {
-		setDriverPath("chrome")
-		driver = { new ChromeDriver() }
+		driver = setDriverPathAndGetBrowserInstance(Driver.chrome)
 	}
 
+    // run via “./gradlew firefoxTest”
+    // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
     firefox {
-        driver = { new FirefoxDriver() }
+        driver = setDriverPathAndGetBrowserInstance(Driver.firefox)
     }
 	
 /*	htmlunit {
