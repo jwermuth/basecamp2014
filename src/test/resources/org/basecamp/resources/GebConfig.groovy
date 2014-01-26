@@ -25,7 +25,7 @@ environments {
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
     firefox {
 		
-        driver = { new FirefoxDriver(new FirefoxProfile()) }
+        driver = { new FirefoxDriver() }
     }
 	
 /*	htmlunit {
