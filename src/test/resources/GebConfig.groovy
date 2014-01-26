@@ -19,13 +19,13 @@ enum DriverPath {
 
 		switch (osName) {
 			case  osName.contains("windows"):
-				"windows"
+				return "windows"
 				break
 			case osName.contains("linux"):
-				"linux"
+				return "linux"
 				break
 			case osName.contains("mac"):
-				"mac"
+				return "mac"
 				break
 			default:
 				osName
