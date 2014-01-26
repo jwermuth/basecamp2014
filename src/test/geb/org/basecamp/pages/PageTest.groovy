@@ -1,10 +1,16 @@
 package org.basecamp.pages
 
-import geb.spock.GebSpec
+import geb.junit4.GebReportingTest
 
-class PageTest extends GebSpec {
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+
+@RunWith(JUnit4)
+class PageTest extends GebReportingTest {
 	
-	def loadpage () {
+	@Test
+	void loadpage () {
 		given:
 		
 		when:
