@@ -1,90 +1,110 @@
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 
-import com.sun.java.util.jar.pack.Instruction.Switch;
-
 baseUrl = "http://google.dk"
 
-enum Driver { firefox, chrome
-	Driver() {
+enum DriverExecutable {
+	windows("IEDriverServer.exe"), linux(""), mac()
+}
+
+enum DriverPath {
+	firefox(""), chrome("chromedriver"), ie("IEDriverServer.exe")
+	
+	DriverPath(executable) {
+		this.executable = executable
+	}
+	private String executable
+	private String os = getOS()
+	private String arch = getArch()
+
+	def String getOS() {
+		String osName = ((String) System.getProperty("os.name")).toLowerCase()
+		
+		switch (osName) {
+			case  osName.contains("windows"):
+				"windows"
+				break
+			case osName.contains("linux"):
+				"linux"
+				break
+			case osName.contains("mac"):
+				"mac"
+				break
+			default:
+				osName			
+		}
+	}
+
+	def String getArch() {
+		if (is64Bit()) {
+			"64"
+		} else {
+			"32"
+		}
 	}
 
 	def is64Bit() {
 		System.getProperty("os.arch").contains("64")
 	}
-	
+
 	def isWindows() {
 		System.getProperty("os.name").toLowerCase().contains("windows")
 	}
-	
+
 	def isLinux() {
 		System.getProperty("os.name").toLowerCase().contains("linux")
 	}
-	
-	def getPathToExecutable() {
-		if (isWindows()) {
-			if (is64Bit()) {
-				
-			} else {
-			
-			}
-		} else if (isLinux()) {
-			if (is64Bit()) {
-				"/home/jaw/workspaces/basecamp/pure-gradle/drivers/chrome/linux/64/chromedriver"
-			} else {
-			
-			}
-		}
+
+	public def String getPathToExecutable() {
+		"drivers/" + this + "/" + getOS() + "/" + getArch() + "/" + this.executable
 	}
-	
 }
 
 
-def setDriverPathAndGetBrowserInstance(Driver driver) {
-	if (driver != Driver.firefox) {
+def setDriverPathAndGetBrowserInstance(DriverPath driver) {
+	if (driver != DriverPath.firefox) {
 		System.properties["webdriver." + driver + ".driver"] = driver.getPathToExecutable()
 	}
-	
+
 	def browserDriver = null
 	switch (driver) {
-		case Driver.firefox:
+		case DriverPath.firefox:
 			return new FirefoxDriver()
 			break;
-		case Driver.chrome:
+		case DriverPath.chrome:
 			return new ChromeDriver()
 			break;
 		default:
 			return new FirefoxDriver()
-			
 	}
 }
 
 // Set this to control which browser is fired when you execute tests in your IDE
-driver = { setDriverPathAndGetBrowserInstance(Driver.firefox) }
+driver = { setDriverPathAndGetBrowserInstance(DriverPath.chrome) }
 
 environments {
 
-    // run via “./gradlew chromeTest”
-    // See: http://code.google.com/p/selenium/wiki/ChromeDriver
+	// run via “./gradlew chromeTest”
+	// See: http://code.google.com/p/selenium/wiki/ChromeDriver
 	chrome {
-		driver = setDriverPathAndGetBrowserInstance(Driver.chrome)
+		driver = { setDriverPathAndGetBrowserInstance(DriverPath.chrome) }
 	}
 
-    // run via “./gradlew firefoxTest”
-    // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
-    firefox {
-        driver = setDriverPathAndGetBrowserInstance(Driver.firefox)
-    }
-	
-/*	htmlunit {
-		driver = { new HtmlUnitDriver() }
+	// run via “./gradlew firefoxTest”
+	// See: http://code.google.com/p/selenium/wiki/FirefoxDriver
+	firefox {
+		driver = { setDriverPathAndGetBrowserInstance(DriverPath.firefox) }
 	}
-*/
-////    ie {
-////        DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
-////        ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-////        driver = {new InternetExplorerDriver(ieCapabilities)}
-////    }
+
+	/*	htmlunit {
+	 driver = { new HtmlUnitDriver() }
+	 }
+	 */
+	////    ie {
+	////        DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
+	////        ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+	////        driver = {new InternetExplorerDriver(ieCapabilities)}
+	////    }
 }
 
 
