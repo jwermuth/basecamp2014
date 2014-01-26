@@ -4,33 +4,26 @@ import org.openqa.selenium.firefox.FirefoxDriver
 
 baseUrl = "http://google.dk"
 
-enum DriverPath {
-	firefox(""), chrome("chromedriver"), ie("IEDriverServer.exe")
+enum OperatingSystem {
+	windows, linux, mac;
 
-	DriverPath(executable) {
-		this.executable = executable
-	}
-	private String executable
-	private String os = getOS()
-	private String arch = getArch()
-
-	def String getOS() {
+	static def OperatingSystem getOS() {
 		String osName = ((String) System.getProperty("os.name")).toLowerCase()
 
 		if (osName.contains("windows")) {
-			return "windows"
+			return OperatingSystem.windows
 		} else {
 			if (osName.contains("linux")) {
-				return "linux"
+				return OperatingSystem.linux
 			} else {
 				if (osName.contains("mac")) {
-					return "mac"
+					return OperatingSystem.mac
 				}
 			}
 		}
 	}
 
-	def String getArch() {
+	static def String getArch() {
 		if (is64Bit()) {
 			"64"
 		} else {
@@ -38,26 +31,52 @@ enum DriverPath {
 		}
 	}
 
-	def is64Bit() {
+	private static def is64Bit() {
+		System.getProperty("os.arch").contains("64")
+	}
+}
+
+enum Browser {
+	firefox, chrome, ie
+
+	def String getExecutable() {
+		switch (OperatingSystem.getOS()) {
+			case (OperatingSystem.linux):
+				switch (this) {
+					case (chrome):
+					return "chromedriver"
+					break;
+				}
+				break;
+			case (OperatingSystem.windows):
+				switch (this) {
+					case (chrome):
+					return "chromedriver.exe"
+					break;
+					case (ie):
+					return "IEDriverServer.exe"
+					break;
+				}
+		}
 	}
 
 	public def String getPathToExecutable() {
-		"drivers/" + this + "/" + getOS() + "/" + getArch() + "/" + this.executable
+		"drivers/" + this + "/" + OperatingSystem.getOS() + "/" + OperatingSystem.getArch() + "/" + getExecutable()
 	}
 }
 
 
-def setDriverPathAndGetBrowserInstance(DriverPath driver) {
-	if (driver != DriverPath.firefox) {
+def setDriverPathAndGetBrowserInstance(Browser driver) {
+	if (driver != Browser.firefox) {
 		System.properties["webdriver." + driver + ".driver"] = driver.getPathToExecutable()
 	}
 
 	def browserDriver = null
 	switch (driver) {
-		case DriverPath.firefox:
+		case Browser.firefox:
 			return new FirefoxDriver()
 			break;
-		case DriverPath.chrome:
+		case Browser.chrome:
 			return new ChromeDriver()
 			break;
 		default:
@@ -66,20 +85,20 @@ def setDriverPathAndGetBrowserInstance(DriverPath driver) {
 }
 
 // Set this to control which browser is fired when you execute tests in your IDE
-driver = { setDriverPathAndGetBrowserInstance(DriverPath.firefox) }
+driver = { setDriverPathAndGetBrowserInstance(Browser.chrome) }
 
 environments {
 
 	// run via “./gradlew chromeTest”
 	// See: http://code.google.com/p/selenium/wiki/ChromeDriver
 	chrome {
-		driver = { setDriverPathAndGetBrowserInstance(DriverPath.chrome) }
+		driver = { setDriverPathAndGetBrowserInstance(Browser.chrome) }
 	}
 
 	// run via “./gradlew firefoxTest”
 	// See: http://code.google.com/p/selenium/wiki/FirefoxDriver
 	firefox {
-		driver = { setDriverPathAndGetBrowserInstance(DriverPath.firefox) }
+		driver = { setDriverPathAndGetBrowserInstance(Browser.firefox) }
 	}
 
 	/*	htmlunit {
