@@ -1,6 +1,8 @@
-import org.openqa.selenium.chrome.ChromeDriver
+package org.basecamp.resources
+
 import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.htmlunit.HtmlUnitDriver
+//import org.openqa.selenium.chrome.ChromeDriver
+//import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
 baseUrl = "http://google.dk"
 
@@ -14,20 +16,20 @@ environments {
 
     // run via “./gradlew chromeTest”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
-    chrome {
+/*    chrome {
         driver = { new ChromeDriver() }
     }
-
+*/
     // run via “./gradlew firefoxTest”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
     firefox {
         driver = { new FirefoxDriver() }
     }
 	
-	htmlunit {
+/*	htmlunit {
 		driver = { new HtmlUnitDriver() }
 	}
-
+*/
 ////    ie {
 ////        DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
 ////        ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
