@@ -1,7 +1,7 @@
 
 
+import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.firefox.FirefoxProfile
 //import org.openqa.selenium.chrome.ChromeDriver
 //import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
@@ -10,7 +10,7 @@ baseUrl = "http://google.dk"
 //driver = {new HtmlUnitDriver() }
 //driver = { new ChromeDriver() }
 //driver = { new FirefoxDriver() }
-driver = "firefox"
+//driver = "firefox"
 
 
 environments {
@@ -23,6 +23,11 @@ environments {
 */
     // run via “./gradlew firefoxTest”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
+	chrome {
+		
+		driver = { new ChromeDriver() }
+	}
+
     firefox {
 		
         driver = { new FirefoxDriver() }
